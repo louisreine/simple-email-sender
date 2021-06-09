@@ -7,11 +7,6 @@ from email.mime.multipart import MIMEMultipart
 import csv
 
 csv_contact_file = "contact_test.csv"
-
-# First test, sending a fake mail
-sender_email = "noreply.maisongrabuge@gmail.com"
-receiver_email = "reine.louis@hotmail.fr"
-
 html_message = ""
 plain_text_message = ""
 
@@ -22,11 +17,11 @@ with open("html_email.txt", "r") as html_file:
     html_message = html_file.read()
 
 port = 465
-email = input("Type mail here : ")
+sender_email = input("Type mail here : ")
 
-while not email.endswith("@gmail.com"):
-    print(f"\"{email}\" is not a valid email, it must be a gmail account")
-    email = input("Type again your mail here : ")
+while not sender_email.endswith("@gmail.com"):
+    print(f"\"{sender_email}\" is not a valid email, it must be a gmail account")
+    sender_email = input("Type again your mail here : ")
 
 password = input("Type password here : ")
 
@@ -34,7 +29,7 @@ password = input("Type password here : ")
 context = ssl.create_default_context()
 
 with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
-    server.login(email, password)
+    server.login(sender_email, password)
     with open(csv_contact_file) as file:
         reader = csv.reader(file)
         next(reader)  # Skip header row
