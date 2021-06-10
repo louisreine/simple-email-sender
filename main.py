@@ -10,10 +10,10 @@ csv_contact_file = "contact_test.csv"
 html_message = ""
 plain_text_message = ""
 
-with open("plain_text_email.txt", "r") as plain_text_file:
+with open("plain_text_email.txt", "r", encoding="utf-8") as plain_text_file:
     plain_text_message = plain_text_file.read()
 
-with open("html_email.txt", "r") as html_file:
+with open("html_email.txt", "r", encoding="utf-8") as html_file:
     html_message = html_file.read()
 
 port = 465
@@ -30,7 +30,7 @@ context = ssl.create_default_context()
 
 with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
     server.login(sender_email, password)
-    with open(csv_contact_file) as file:
+    with open(csv_contact_file, encoding="utf-8") as file:
         reader = csv.reader(file)
         next(reader)  # Skip header row
         counter = 0
