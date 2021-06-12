@@ -6,14 +6,18 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import csv
 
-csv_contact_file = "contact_test.csv"
+csv_contact_file = "contact_test.csv.csv"
+html_email_file = "Mail_coming_final.html"
+plain_text_file = "plain_text_email.txt"
+
+
 html_message = ""
 plain_text_message = ""
 
-with open("plain_text_email.txt", "r", encoding="utf-8") as plain_text_file:
+with open(plain_text_file, "r", encoding="utf-8") as plain_text_file:
     plain_text_message = plain_text_file.read()
 
-with open("html_email.txt", "r", encoding="utf-8") as html_file:
+with open(html_email_file, "r", encoding="utf-8") as html_file:
     html_message = html_file.read()
 
 port = 465
@@ -43,11 +47,11 @@ with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
 
                 # Create a MIME Object
                 message = MIMEMultipart("alternative")
-                message["Subject"] = "Test Mail from Grabuge"
+                message["Subject"] = "NESOS : ONDULATIONS SECRÈTES"
                 message["From"] = sender_email
                 message["To"] = receiver_email
 
-                html_message_formatted = html_message.format(First_Name=first_name)
+                html_message_formatted = html_message.replace("{First Name}", first_name)
 
                 # Turn these into plain/html MIMEText objects
                 plain_part = MIMEText(plain_text_message, "plain")
